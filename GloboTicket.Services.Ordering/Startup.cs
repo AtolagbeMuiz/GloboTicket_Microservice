@@ -1,8 +1,7 @@
 using AutoMapper;
-using GloboTicket.Grpc;
-using GloboTicket.Services.ShoppingBasket.DbContexts;
-using GloboTicket.Services.ShoppingBasket.Repositories;
-using GloboTicket.Services.ShoppingBasket.Services;
+using GloboTicket.Services.Ordering.DbContexts;
+using GloboTicket.Services.Ordering.Repositories;
+using GloboTicket.Services.Ordering.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -17,7 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GloboTicket.Services.ShoppingBasket
+namespace GloboTicket.Services.Ordering
 {
     public class Startup
     {
@@ -31,29 +30,16 @@ namespace GloboTicket.Services.ShoppingBasket
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
-            services.AddScoped<IBasketRepository, BasketRepository>();
-            services.AddScoped<IBasketLinesRepository, BasketLinesRepository>();
-            services.AddScoped<IEventRepository, EventRepository>();
-            services.AddScoped<IBasketChangeEventRepository, BasketChangeEventRepository>();
-
-            services.AddHttpClient<IEventCatalogService, EventCatalogService>(c =>
-                c.BaseAddress = new Uri(Configuration["ApiConfigs:EventCatalog:Uri"]));
-
-            services.AddGrpcClient<Discounts.DiscountsClient>(o => o.Address = new Uri(Configuration["ApiConfigs:Discount:Uri"]));
-
-            //services.AddGrpcClient<Payments.DiscountsClient>(o => o.Address = new Uri(Configuration["ApiConfigs:Discount:Uri"]));
-
-
-
-            services.AddDbContext<ShoppingBasketDbContext>(options =>
+            services.AddDbContext<OrderDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
-
+            services.AddControllers();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddGrpc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +59,7 @@ namespace GloboTicket.Services.ShoppingBasket
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapGrpcService<OrdersService>();
             });
         }
     }

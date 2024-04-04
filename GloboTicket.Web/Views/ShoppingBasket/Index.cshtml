@@ -1,5 +1,18 @@
 ﻿@model GloboTicket.Web.Models.View.BasketViewModel
 
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+
+@{
+    var sandboxClientId = Configuration.GetSection("PayPalCredentials")["SandboxClientId"];
+    var url = $"https://www.paypal.com/sdk/js?client-id={sandboxClientId}&currency=GBP";
+
+    var amount = (Model.ShoppingCartTotal - Model.Discount);
+
+    string invoiceId = string.Empty; //ViewBag.InvoiceId.ToString();
+}
+
 <h2>Your shopping cart</h2>
 <h4>Here are the tickets for great events currently in your shopping cart.</h4>
 
@@ -77,6 +90,92 @@
             <a class="btn btn-primary" asp-controller="ShoppingBasket" asp-action="Checkout">Check out now!</a>
         </div>
     </div>
+
+    <div class="col-6" id="paypal-button-container" style="display: flex; justify-content: center; align-items: center;"></div>
+
+     @* Paypal Javascript SDK Button render *@
+    <script src="@url"></script>
+
+   
+    <script>
+        
+        paypal.Buttons({
+            // Order is created on the server and the order id is returned
+            createOrder() {
+
+                return fetch("/ShoppingBasket/CreateOrder?amount=@amount", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+
+                })
+                    .then((response) => response.json())
+                    //.then((order) => { console.log(order); })
+                    //.then((order) => {return order.id });
+                    .then((order) => {
+                        const jsonData = JSON.parse(order);
+                        const id = jsonData['id'];
+                        console.log("<--orderID " + id);
+                        return id;
+
+                    })
+
+            },
+
+            // Finalize the transaction on the server after payer approval
+            //complete order and confirm payment
+            onApprove : function (data, actions) {
+            console.log("<--data order " + data.orderID);
+                let orderID = data.orderID;
+
+            return fetch("/Payment/CompleteOrder?orderID=" + orderID, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                //body: JSON.stringify({
+                //    orderID: ordid
+                //})
+            })
+                .then((response) => response.json())
+                .then((orderData) => {
+                    let paymentStatus = true;
+                    let InvoiceId = @Html.Raw(Json.Serialize(@invoiceId));
+                    
+
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+
+                    const jsonData = JSON.parse(orderData);
+                    let ordid = jsonData['id'];
+                    //const transid = jsonData.purchase_units.payments.captures.id;
+                    console.log("id ord " + ordid);
+                    console.log("PaymentID " + jsonData.purchase_units[0].payments.captures[0].id)
+
+                    let transactionId = jsonData.purchase_units[0].payments.captures[0].id;
+                    let paymenttype = "Paypal";
+                    //console.log("transa " + transid);
+
+                    //const transaction = orderData.purchase_units[0].payments.captures[0];
+                    //console.log("trans " + transaction.id)
+                    //console.log("status " + transaction.status)
+                    var url = "/Home/PaymentStatus?status=" + paymentStatus + "&transactionId=" + transactionId + "&orderId=" + ordid + "&InvoiceId=" + InvoiceId + "&paymentType=" + paymenttype;
+
+                     window.location.href = url;
+
+                    //alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+                    // When ready to go live, remove the alert and show a success message within this page. For example:
+                    // const element = document.getElementById('paypal-button-container');
+                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                    // Or go to another URL:  window.location.href = 'thank_you.html';
+                });
+        }
+
+
+        }).render('#paypal-button-container');
+
+
+    </script>
 
 </div>
 

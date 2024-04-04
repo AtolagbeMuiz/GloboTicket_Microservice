@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option csharp_namespace = "GloboTicket.Grpc";
+
+package API;
+
+service Payments {
+	rpc CheckoutOrder (CheckoutOrderRequest) returns (CheckoutOrderResponse) {}
+}
+
+message CheckoutOrderRequest {
+	double BasketTotal = 1;
+	string BasketId = 2;
+	string UserId = 3;
+}
+
+message CheckoutOrderResponse {
+	Response response = 1;
+}
+
+
+message Response {
+	string Id = 1;
+	string Status = 2;
+}

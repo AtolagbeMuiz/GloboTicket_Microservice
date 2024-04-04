@@ -143,6 +143,19 @@ namespace GloboTicket.Services.ShoppingBasket.Controllers
                 try
                 {
                     //await messageBus.PublishMessage(basketCheckoutMessage, "checkoutmessage");
+
+                    var paymentServiceChannel = GrpcChannel.ForAddress("https://localhost:5004");
+
+                    PaymentService paymentService = new PaymentService(new Payments.PaymentsClient(paymentServiceChannel));
+
+                    var paymentCheckOutOrderRequest = new PaymentCheckOutOrderRequest
+                    {
+                        UserId = basketCheckoutMessage.UserId.ToString(),
+                        BasketId = basketCheckoutMessage.BasketId.ToString(),
+                        BasketTotal = basketCheckoutMessage.BasketTotal
+                    };
+
+                    var checkOutOrderResponse = await paymentService.CheckoutOrder(paymentCheckOutOrderRequest);
                 }
                 catch (Exception e)
                 {

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "GloboTicket.Grpc";
+
+package API;
+
+service Orders {
+	rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse) {}
+}
+
+message CreateOrderRequest {
+	string id = 1;
+	double OrderTotal = 2;
+	string BasketId = 3;
+	string UserId = 4;
+}
+
+message CreateOrderResponse {
+	
+}
+
+

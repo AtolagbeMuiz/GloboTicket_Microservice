@@ -166,5 +166,50 @@ namespace GloboTicket.Web.Controllers
         {
             return View();
         }
+
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateOrder(string amount)
+        {
+            try
+            {
+                BasketCheckoutViewModel basketCheckoutViewModel = new BasketCheckoutViewModel();
+
+                var basketId = Request.Cookies.GetCurrentBasketId(settings);
+                if (ModelState.IsValid)
+                {
+                    var basketForCheckout = new BasketForCheckout
+                    {
+                        //FirstName = basketCheckoutViewModel.FirstName,
+                        //LastName = basketCheckoutViewModel.LastName,
+                        //Email = basketCheckoutViewModel.Email,
+                        //Address = basketCheckoutViewModel.Address,
+                        //ZipCode = basketCheckoutViewModel.ZipCode,
+                        //City = basketCheckoutViewModel.City,
+                        //Country = basketCheckoutViewModel.Country,
+                        //CardNumber = basketCheckoutViewModel.CardNumber,
+                        //CardName = basketCheckoutViewModel.CardName,
+                        //CardExpiration = basketCheckoutViewModel.CardExpiration,
+                        //CvvCode = basketCheckoutViewModel.CvvCode,
+                        BasketId = basketId,
+                        UserId = settings.UserId
+                    };
+
+                    basketCheckoutViewModel.BasketId = basketForCheckout.BasketId;
+
+                    await basketService.Checkout(basketCheckoutViewModel.BasketId, basketForCheckout);
+
+                    return RedirectToAction("CheckoutComplete");
+                }
+
+                return View(basketCheckoutViewModel);
+            }
+            catch (Exception e)
+            {
+                ViewBag.ErrorMessage = e.Message;
+                return View();
+            }
+        }
     }
 }

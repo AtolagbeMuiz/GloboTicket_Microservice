@@ -16,11 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\discount.proto" GrpcServices="Client">
-      <Link>Protos\discount.proto</Link>
-    </Protobuf>
-    <Protobuf Include="..\payment.proto" GrpcServices="Client">
-      <Link>Protos\payment.proto</Link>
+    <Protobuf Include="..\order.proto" GrpcServices="Server">
+      <Link>Protos\order.proto</Link>
     </Protobuf>
   </ItemGroup>
 
