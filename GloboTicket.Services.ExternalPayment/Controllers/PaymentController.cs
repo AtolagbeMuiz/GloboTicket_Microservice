@@ -7,6 +7,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System;
+using GloboTicket.Integration.MessagingBus;
+using GloboTicket.Services.ExternalPayment.Messages;
 
 namespace GloboTicket.Services.ExternalPayment.Controllers
 {
@@ -15,11 +17,12 @@ namespace GloboTicket.Services.ExternalPayment.Controllers
 
     public class PaymentController : ControllerBase
     {
-
+        private readonly IMessageBus _messageBus;
         private readonly IConfiguration _config;
 
-        public PaymentController(IConfiguration config)
+        public PaymentController(IConfiguration config, IMessageBus messageBus)
         {
+            _messageBus = messageBus;
             _config = config;
         }
 
@@ -49,6 +52,15 @@ namespace GloboTicket.Services.ExternalPayment.Controllers
                 {
                     var captureResponse = response.Content.ReadAsStringAsync();
                     var captureResponseResult = captureResponse.Result;
+
+
+                    //Async Communication to the order service to update the payment status of the order
+                    var updateOrderPaymentMessage = new UpdateOrderPaymentMessage
+                    {
+                        OrderId = orderID,
+                        OrderPaid = true
+                    };
+                    await _messageBus.PublishMessage(updateOrderPaymentMessage, "updateordermessage");
 
                     return Ok(captureResponseResult);
                 }

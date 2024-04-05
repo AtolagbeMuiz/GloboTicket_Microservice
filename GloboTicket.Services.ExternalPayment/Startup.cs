@@ -1,5 +1,6 @@
 using AutoMapper;
 using GloboTicket.Grpc;
+using GloboTicket.Integration.MessagingBus;
 using GloboTicket.Services.ExternalPayment.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +36,8 @@ namespace GloboTicket.Services.ExternalPayment
             services.AddGrpc();
 
             services.AddGrpcClient<Orders.OrdersClient>(o => o.Address = new Uri(Configuration["ApiConfigs:Order:Uri"]));
+
+            services.AddSingleton<IMessageBus, AzServiceBusMessageBus>();
 
             services.AddControllers();
         }

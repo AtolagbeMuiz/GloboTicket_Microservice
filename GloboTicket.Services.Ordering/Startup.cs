@@ -1,5 +1,6 @@
 using AutoMapper;
 using GloboTicket.Services.Ordering.DbContexts;
+using GloboTicket.Services.Ordering.Messaging;
 using GloboTicket.Services.Ordering.Repositories;
 using GloboTicket.Services.Ordering.Services;
 using Microsoft.AspNetCore.Builder;
@@ -33,6 +34,8 @@ namespace GloboTicket.Services.Ordering
 
             services.AddScoped<IOrderRepository, OrderRepository>();
 
+            services.AddSingleton<IAzServiceBusConsumer, AzServiceBusConsumer>();
+
             services.AddDbContext<OrderDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
@@ -40,6 +43,15 @@ namespace GloboTicket.Services.Ordering
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddGrpc();
+
+            
+            //Specific DbContext for use from singleton AzServiceBusConsumer
+            var optionsBuilder = new DbContextOptionsBuilder<OrderDbContext>();
+            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+
+            services.AddSingleton(new OrderRepository(optionsBuilder.Options));
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
