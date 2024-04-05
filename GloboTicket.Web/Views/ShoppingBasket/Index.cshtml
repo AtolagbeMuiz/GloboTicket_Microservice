@@ -110,16 +110,16 @@
                     },
 
                 })
-                    .then((response) => response.json())
-                    //.then((order) => { console.log(order); })
-                    //.then((order) => {return order.id });
-                    .then((order) => {
-                        const jsonData = JSON.parse(order);
-                        const id = jsonData['id'];
-                        console.log("<--orderID " + id);
-                        return id;
+                .then((response) => response.json())
+                //.then((order) => { console.log(order); })
+                //.then((order) => {return order.id });
+                .then((order) => {
+                    const jsonData = JSON.parse(order);
+                    const id = jsonData['id'];
+                    console.log("<--orderID " + id);
+                    return id;
 
-                    })
+                })
 
             },
 
@@ -129,7 +129,7 @@
             console.log("<--data order " + data.orderID);
                 let orderID = data.orderID;
 
-            return fetch("/Payment/CompleteOrder?orderID=" + orderID, {
+            return fetch("/ExternalPayment/CompleteOrder?orderID=" + orderID, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -141,7 +141,7 @@
                 .then((response) => response.json())
                 .then((orderData) => {
                     let paymentStatus = true;
-                    let InvoiceId = @Html.Raw(Json.Serialize(@invoiceId));
+                    //let InvoiceId = @Html.Raw(Json.Serialize(@invoiceId));
                     
 
                     console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
@@ -159,7 +159,7 @@
                     //const transaction = orderData.purchase_units[0].payments.captures[0];
                     //console.log("trans " + transaction.id)
                     //console.log("status " + transaction.status)
-                    var url = "/Home/PaymentStatus?status=" + paymentStatus + "&transactionId=" + transactionId + "&orderId=" + ordid + "&InvoiceId=" + InvoiceId + "&paymentType=" + paymenttype;
+                        var url = "/ExternalPayment/PaymentStatus?status=" + paymentStatus + "&transactionId=" + transactionId + "&orderId=" + ordid + "&InvoiceId=" + ordid + "&paymentType=" + paymenttype;
 
                      window.location.href = url;
 

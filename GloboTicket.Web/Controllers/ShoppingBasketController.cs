@@ -198,9 +198,10 @@ namespace GloboTicket.Web.Controllers
 
                     basketCheckoutViewModel.BasketId = basketForCheckout.BasketId;
 
-                    await basketService.Checkout(basketCheckoutViewModel.BasketId, basketForCheckout);
-
-                    return RedirectToAction("CheckoutComplete");
+                    var checkOutresponse = await basketService.Checkout(basketCheckoutViewModel.BasketId, basketForCheckout);
+                    
+                    return Json(checkOutresponse);
+                    ///return RedirectToAction("CheckoutComplete");
                 }
 
                 return View(basketCheckoutViewModel);

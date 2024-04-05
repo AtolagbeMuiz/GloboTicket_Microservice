@@ -31,13 +31,19 @@ namespace GloboTicket.Services.ShoppingBasket.Services
 
                 CheckoutOrderResponse checkoutOrderResponse = await paymentsService.CheckoutOrderAsync(checkoutOrderRequest);
 
-                var paymentCheckOutOrderResponse = new PaymentCheckOutOrderResponse
+                if (checkoutOrderResponse != null)
                 {
-                   Id = checkoutOrderResponse.Response.Id,
-                   Status = checkoutOrderResponse.Response.Status
-                };
+                    var paymentCheckOutOrderResponse = new PaymentCheckOutOrderResponse
+                    {
+                        Id = checkoutOrderResponse.Response.Id,
+                        Status = checkoutOrderResponse.Response.Status
+                    };
 
-                return paymentCheckOutOrderResponse;
+                    return paymentCheckOutOrderResponse;
+                }
+
+                return null;
+              
             }
             catch (Exception e)
             {

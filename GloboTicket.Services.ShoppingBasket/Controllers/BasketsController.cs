@@ -144,6 +144,8 @@ namespace GloboTicket.Services.ShoppingBasket.Controllers
                 {
                     //await messageBus.PublishMessage(basketCheckoutMessage, "checkoutmessage");
 
+                    //about to call the payment service to checkout order
+
                     var paymentServiceChannel = GrpcChannel.ForAddress("https://localhost:5004");
 
                     PaymentService paymentService = new PaymentService(new Payments.PaymentsClient(paymentServiceChannel));
@@ -156,6 +158,11 @@ namespace GloboTicket.Services.ShoppingBasket.Controllers
                     };
 
                     var checkOutOrderResponse = await paymentService.CheckoutOrder(paymentCheckOutOrderRequest);
+
+                    //return checkOutOrderResponse;
+                    await basketRepository.ClearBasket(basketCheckout.BasketId);
+                    //return Accepted(basketCheckoutMessage);
+                    return Accepted(checkOutOrderResponse);
                 }
                 catch (Exception e)
                 {
@@ -163,8 +170,6 @@ namespace GloboTicket.Services.ShoppingBasket.Controllers
                     throw;
                 }
 
-                await basketRepository.ClearBasket(basketCheckout.BasketId);
-                return Accepted(basketCheckoutMessage);
             }
             catch (Exception e)
             {

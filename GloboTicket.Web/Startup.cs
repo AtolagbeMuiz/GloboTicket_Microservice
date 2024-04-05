@@ -35,6 +35,8 @@ namespace GloboTicket.Web
             if (environment.IsDevelopment())
                 builder.AddRazorRuntimeCompilation();
 
+            services.AddHttpClient<IExternalPaymentService, ExternalPaymentService>(c =>
+              c.BaseAddress = new Uri(config["ApiConfigs:ExternalPyament:Uri"]));
             services.AddHttpClient<IEventCatalogService, EventCatalogService>(c =>
               c.BaseAddress = new Uri(config["ApiConfigs:EventCatalog:Uri"]));
             services.AddHttpClient<IShoppingBasketService, ShoppingBasketService>(c =>
