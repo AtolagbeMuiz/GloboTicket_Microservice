@@ -1,5 +1,6 @@
 using AutoMapper;
 using GloboTicket.Services.Ordering.DbContexts;
+using GloboTicket.Services.Ordering.Extensions;
 using GloboTicket.Services.Ordering.Messaging;
 using GloboTicket.Services.Ordering.Repositories;
 using GloboTicket.Services.Ordering.Services;
@@ -73,6 +74,8 @@ namespace GloboTicket.Services.Ordering
                 endpoints.MapControllers();
                 endpoints.MapGrpcService<OrdersService>();
             });
+
+            app.UseAzServiceBusConsumer();
         }
     }
 }
