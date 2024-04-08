@@ -12,9 +12,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Polly.Extensions.Http;
+using Polly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace GloboTicket.Services.ShoppingBasket
@@ -41,13 +44,11 @@ namespace GloboTicket.Services.ShoppingBasket
             services.AddScoped<IBasketChangeEventRepository, BasketChangeEventRepository>();
 
             services.AddHttpClient<IEventCatalogService, EventCatalogService>(c =>
-                c.BaseAddress = new Uri(Configuration["ApiConfigs:EventCatalog:Uri"]));
+                c.BaseAddress = new Uri(Configuration["ApiConfigs:EventCatalog:Uri"]))
+                .AddPolicyHandler(GetRetryPolicy())
+                .AddPolicyHandler(GetCircuitBreakerPolicy());
 
             services.AddGrpcClient<Discounts.DiscountsClient>(o => o.Address = new Uri(Configuration["ApiConfigs:Discount:Uri"]));
-
-            //services.AddGrpcClient<Payments.DiscountsClient>(o => o.Address = new Uri(Configuration["ApiConfigs:Discount:Uri"]));
-
-
 
             services.AddDbContext<ShoppingBasketDbContext>(options =>
             {
@@ -74,6 +75,25 @@ namespace GloboTicket.Services.ShoppingBasket
             {
                 endpoints.MapControllers();
             });
+        }
+
+
+        private static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
+        {
+            return HttpPolicyExtensions.HandleTransientHttpError()
+                .WaitAndRetryAsync(5,
+                    retryAttempt => TimeSpan.FromMilliseconds(Math.Pow(1.5, retryAttempt) * 1000),
+                    (_, waitingTime) =>
+                    {
+                        Console.WriteLine("Retrying due to Polly retry policy");
+                    });
+        }
+
+        private static IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPolicy()
+        {
+            return HttpPolicyExtensions
+                .HandleTransientHttpError()
+                .CircuitBreakerAsync(3, TimeSpan.FromSeconds(15));
         }
     }
 }
