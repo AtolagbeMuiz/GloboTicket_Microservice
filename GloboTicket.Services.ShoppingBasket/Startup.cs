@@ -45,8 +45,8 @@ namespace GloboTicket.Services.ShoppingBasket
 
             services.AddHttpClient<IEventCatalogService, EventCatalogService>(c =>
                 c.BaseAddress = new Uri(Configuration["ApiConfigs:EventCatalog:Uri"]))
-                .AddPolicyHandler(GetRetryPolicy())
-                .AddPolicyHandler(GetCircuitBreakerPolicy());
+                .AddPolicyHandler(GetRetryPolicy()) //add retry policy
+                .AddPolicyHandler(GetCircuitBreakerPolicy()); //added circuit breaker
 
             services.AddGrpcClient<Discounts.DiscountsClient>(o => o.Address = new Uri(Configuration["ApiConfigs:Discount:Uri"]));
 
