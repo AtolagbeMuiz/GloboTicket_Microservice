@@ -38,10 +38,19 @@ namespace GloboTicket.Services.Ordering.Messaging
 
         public void Start()
         {
-            var messageHandlerOptions = new MessageHandlerOptions(OnServiceBusException) { MaxConcurrentCalls = 4 };
+            try
+            {
+                var messageHandlerOptions = new MessageHandlerOptions(OnServiceBusException) { MaxConcurrentCalls = 4 };
 
 
-            _updateOrderMessageReceiverClient.RegisterMessageHandler(OnOrderPaymentUpdateReceived, messageHandlerOptions);
+                _updateOrderMessageReceiverClient.RegisterMessageHandler(OnOrderPaymentUpdateReceived, messageHandlerOptions);
+            }
+            catch (Exception ex)
+            {
+                
+                throw;
+            }
+         
         }
 
         private async Task OnOrderPaymentUpdateReceived(Message message, CancellationToken arg2)

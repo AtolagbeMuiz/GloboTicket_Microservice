@@ -13,7 +13,8 @@ namespace GloboTicket.Integration.MessagingBus
 {
     public class AzServiceBusMessageBus : IMessageBus
     {
-        private string connectionString = "Endpoint=sb://globoticket-messgingbus.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=NuJyuurV2/uyX3dyRMvSaITIB/YG4o+vl+ASbA9rags=";
+        //private string connectionString = "Endpoint=sb://globoticket-messgingbus.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=NuJyuurV2/uyX3dyRMvSaITIB/YG4o+vl+ASbA9rags=";
+        private string connectionString = "Endpoint=sb://globoticket-messgingbus.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=NuJyuurV2/uyX3dyRMvSaITIB/YG4o+vl+ASbA9rags=;TransportType=AmqpWebSockets";
 
         public async Task PublishMessage(IntegrationBaseMessage message, string topicName)
         {
