@@ -1,5 +1,8 @@
 In order to explicitly understand the Microservices Architecture and also the communication between client-service and microservice-microservice, a mini-pet project called GloboTicket was built to demonstrate this. This project is an adaptation of a Pluralsight Course but not completely the same as the course as some part of the user flow differs. I will start by describing the architecture of the codebase.
 
+**Architecture**
+![GloboTicket Microservice Architecture.png](GloboTicket.Web/wwwroot/readmeassets/GloboTicket%20Microservice%20Architecture.png)
+
 
 **Folder Structure**
 
@@ -65,8 +68,7 @@ The API gateway was built using Ocelot. This Gateway handles all routing from th
 
 
 
-**Architecture**
-![GloboTicket Microservice Architecture.png](GloboTicket.Web/wwwroot/readmeassets/GloboTicket%20Microservice%20Architecture.png)
+
 
 
 
