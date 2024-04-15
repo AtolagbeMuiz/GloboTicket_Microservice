@@ -35,25 +35,25 @@ Snippet of code using HTTP Client to make RESTful API calls to different microse
 **Service-Service Communication using gRPC**
 To implement gRPC, two parties has to be involved and one is defined as a gRPC client and the other as gRPC server. The microservice sending request is defined as gRPC client and the microservice receiving the request is defined as the gRPC server by adding it as a connected service using the defined protobuff contract.
 
-![image.png](GloboTicket.Web/wwwroot/readmeassets/grpc 1.png)
+![image.png](GloboTicket.Web/wwwroot/readmeassets/grpc%201.png)
 snippet of a protobuff contract.
 
-![image.png](GloboTicket.Web/wwwroot/readmeassets/grpc 2.png)
+![image.png](GloboTicket.Web/wwwroot/readmeassets/grpc%202.png)
 snippet of the implementation of contract extension on the gRPC client-side.
 
 
-![image.png](GloboTicket.Web/wwwroot/readmeassets/grpc 3.png)
+![image.png](GloboTicket.Web/wwwroot/readmeassets/grpc%203.png)
 snippet of the implementation of the gRPC server.
 
 
 **Asynchronous Communication (Publish-Subscribe Mechanism using Azure Service Bus)**
 
-![image.png](GloboTicket.Web/wwwroot/readmeassets/azure-servie-bus 1.png)
+![image.png](GloboTicket.Web/wwwroot/readmeassets/azure-servie-bus%201.png)
 This is the implementation in the Messaging that publishes messages to the "Topic" on Azure.
 
 
 
-![image.png](GloboTicket.Web/wwwroot/readmeassets/azure-servie-bus 2.png)
+![image.png](GloboTicket.Web/wwwroot/readmeassets/azure-servie-bus%202.png)
 This Implementation is the Azure Service Bus consumer which listens to the topic for any message.
 
 
@@ -66,7 +66,7 @@ The API gateway was built using Ocelot. This Gateway handles all routing from th
 
 
 **Architecture**
-![GloboTicket Microservice Architecture.png](GloboTicket.Web/wwwroot/readmeassets/GloboTicket Microservice Architecture.png)
+![GloboTicket Microservice Architecture.png](GloboTicket.Web/wwwroot/readmeassets/GloboTicket%20Microservice%20Architecture.png)
 
 
 
