@@ -5,7 +5,7 @@ In order to explicitly understand the Microservices Architecture and also the co
 
 The codebase is is composed of a whole Solution which consist of 9 different projects, and these projects are housed in their respective folders. 
 
-![image.png](/.attachments/image-3cb41fbe-4658-4437-80b3-9541ff6da359.png)
+![image.png](GloboTicket.Web/wwwroot/readmeassets/folderstructure.png)
 
 Frontends: This consist of the client application which in this case an ASP.NET MVC Core project (GloboTicket.Web) which sends HTTP requests to the Microservices.
 
@@ -28,32 +28,32 @@ In the course of this project, Two synchronous communication methods were adopte
 
 **Client-Service Communication using REST**
 
-![image.png](/.attachments/image-1fa483b9-206b-4647-97e8-52fe604b13d3.png)
+![image.png](GloboTicket.Web/wwwroot/readmeassets/client-service-rest.png)
 Snippet of code using HTTP Client to make RESTful API calls to different microservice endpoints.
 
 
 **Service-Service Communication using gRPC**
 To implement gRPC, two parties has to be involved and one is defined as a gRPC client and the other as gRPC server. The microservice sending request is defined as gRPC client and the microservice receiving the request is defined as the gRPC server by adding it as a connected service using the defined protobuff contract.
 
-![image.png](/.attachments/image-db726696-7a18-4502-b781-e78455268b3c.png)
+![image.png](GloboTicket.Web/wwwroot/readmeassets/grpc 1.png)
 snippet of a protobuff contract.
 
-![image.png](/.attachments/image-36dbdea0-db3c-4bda-a236-11d2726a8595.png)
+![image.png](GloboTicket.Web/wwwroot/readmeassets/grpc 2.png)
 snippet of the implementation of contract extension on the gRPC client-side.
 
 
-![image.png](/.attachments/image-9687006b-8d27-43c1-b51c-b2a7655a6a56.png)
+![image.png](GloboTicket.Web/wwwroot/readmeassets/grpc 3.png)
 snippet of the implementation of the gRPC server.
 
 
 **Asynchronous Communication (Publish-Subscribe Mechanism using Azure Service Bus)**
 
-![image.png](/.attachments/image-757773f1-d0c3-409a-b7f7-d35fc40e5834.png)
+![image.png](GloboTicket.Web/wwwroot/readmeassets/azure-servie-bus 1.png)
 This is the implementation in the Messaging that publishes messages to the "Topic" on Azure.
 
 
 
-![image.png](/.attachments/image-75d677e1-ec2e-4171-926c-74e82ca4f28d.png)
+![image.png](GloboTicket.Web/wwwroot/readmeassets/azure-servie-bus 2.png)
 This Implementation is the Azure Service Bus consumer which listens to the topic for any message.
 
 
@@ -61,12 +61,12 @@ This Implementation is the Azure Service Bus consumer which listens to the topic
 **API Gateway**
 The API gateway was built using Ocelot. This Gateway handles all routing from the client to downstream APIs.
 
-![image.png](/.attachments/image-f4da83a6-165f-4003-a739-5bc82b18c770.png)
+![image.png](GloboTicket.Web/wwwroot/readmeassets/api-gateway.png)
 
 
 
 **Architecture**
-![GloboTicket Microservice Architecture.png](/.attachments/GloboTicket%20Microservice%20Architecture-4471ebcf-fab1-4d74-87ac-c2085ed96439.png)
+![GloboTicket Microservice Architecture.png](GloboTicket.Web/wwwroot/readmeassets/GloboTicket Microservice Architecture.png)
 
 
 
