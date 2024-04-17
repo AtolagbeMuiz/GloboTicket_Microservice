@@ -34,7 +34,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GloboTicket.Integration.Mes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{5C3909D0-1BA9-4ECB-832C-2404D83B06DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ocelot.APIGateway", "Ocelot.APIGateway\Ocelot.APIGateway.csproj", "{B721BF3A-5A97-40CB-BA09-E3F86472D49C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ocelot.APIGateway", "Ocelot.APIGateway\Ocelot.APIGateway.csproj", "{B721BF3A-5A97-40CB-BA09-E3F86472D49C}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{AFA9BF8D-E3ED-4CDA-9DF1-96F746C07DFA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,6 +80,10 @@ Global
 		{B721BF3A-5A97-40CB-BA09-E3F86472D49C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B721BF3A-5A97-40CB-BA09-E3F86472D49C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B721BF3A-5A97-40CB-BA09-E3F86472D49C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFA9BF8D-E3ED-4CDA-9DF1-96F746C07DFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFA9BF8D-E3ED-4CDA-9DF1-96F746C07DFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFA9BF8D-E3ED-4CDA-9DF1-96F746C07DFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFA9BF8D-E3ED-4CDA-9DF1-96F746C07DFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
