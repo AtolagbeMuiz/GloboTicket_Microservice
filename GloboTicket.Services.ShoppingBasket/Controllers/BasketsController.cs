@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Coupon = GloboTicket.Services.ShoppingBasket.Models.Coupon;
 using Grpc.Net.Client;
 using GloboTicket.Grpc;
+using Microsoft.Extensions.Configuration;
 
 namespace GloboTicket.Services.ShoppingBasket.Controllers
 {
@@ -23,15 +24,17 @@ namespace GloboTicket.Services.ShoppingBasket.Controllers
     {
         private readonly IBasketRepository basketRepository;
         private readonly IMapper mapper;
-       // private readonly IMessageBus messageBus;
+        private readonly IConfiguration _config;
+        // private readonly IMessageBus messageBus;
         //private readonly DiscountService discountService;
 
-        public BasketsController(IBasketRepository basketRepository, IMapper mapper) // IMessageBus messageBus //, DiscountService discountService)
+        public BasketsController(IBasketRepository basketRepository, IMapper mapper, IConfiguration config) // IMessageBus messageBus //, DiscountService discountService)
         {
             this.basketRepository = basketRepository;
             this.mapper = mapper;
+            _config = config;
             //this.messageBus = messageBus;
-           // this.discountService = discountService;
+            // this.discountService = discountService;
         }
 
         [HttpGet("{basketId}", Name = "GetBasket")]
@@ -125,7 +128,10 @@ namespace GloboTicket.Services.ShoppingBasket.Controllers
                 //apply discountt by talking to the discount service
                 Coupon coupon = null;
 
-                var channel = GrpcChannel.ForAddress("https://localhost:5003");
+                var discountBaseUrl = _config.GetValue<string>("ApiConfigs:Discount:Uri");
+
+                //var channel = GrpcChannel.ForAddress("https://localhost:5003");
+                var channel = GrpcChannel.ForAddress(discountBaseUrl);
 
                 DiscountService discountService = new DiscountService(new Discounts.DiscountsClient(channel));
                 if (basket.CouponId.HasValue)
@@ -145,8 +151,10 @@ namespace GloboTicket.Services.ShoppingBasket.Controllers
                     //await messageBus.PublishMessage(basketCheckoutMessage, "checkoutmessage");
 
                     //about to call the payment service to checkout order
+                    var externalPaymentBaseUrl = _config.GetValue<string>("ApiConfigs:ExternalPayment:Uri");
 
-                    var paymentServiceChannel = GrpcChannel.ForAddress("https://localhost:5004");
+                    //var paymentServiceChannel = GrpcChannel.ForAddress("https://localhost:5004");
+                    var paymentServiceChannel = GrpcChannel.ForAddress(externalPaymentBaseUrl);
 
                     PaymentService paymentService = new PaymentService(new Payments.PaymentsClient(paymentServiceChannel));
 

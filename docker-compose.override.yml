@@ -2,14 +2,89 @@ version: '3.4'
 
 services:
   globoticket.services.discount:
+    container_name: globoticket.services.discount
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ConnectionStrings_DefaultConnection=Data Source=db;Initial Catalog=GloboTicketDiscountDb;Integrated Security=False;User ID=sa;Password=password123!
+      - ConnectionStrings_DefaultConnection=Data Source=db;Initial Catalog=GloboTicketDiscountDb;Integrated Security=False;User ID=sa;Password=password123!;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;
 
     ports:
-      - "80"
-      - "443"
+      #- "5003:80"
+      - "5003:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on:
+      - db
+
+ 
+
+  globoticket.services.eventcatalog:
+    container_name: globoticket.services.eventcatalog
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ConnectionStrings_DefaultConnection=Data Source=db;Initial Catalog=GloboTicketEventCatalogDb;Integrated Security=False;User ID=sa;Password=password123!;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;
+    ports:
+      #- "5001:80"
+      - "5001:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on:
+      - db
+
+
+  globoticket.services.externalpayment:
+    container_name: globoticket.services.externalpayment
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ApiConfigs__Order__Uri=https://globoticket.services.ordering
+      - ApiRoute__PaypalBaseUrl=https://api-m.sandbox.paypal.com/
+      - ApiRoute__GetAccessToken=v1/oauth2/token
+      - ApiRoute__CheckoutOrder=v2/checkout/orders
+      - ApiRoute__CaptureOrder=v2/checkout/orders/
+    
+    ports:
+      #- "5004:80"
+      - "5004:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    
+
+
+  globoticket.services.ordering:
+    container_name: globoticket.services.ordering
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ConnectionStrings_DefaultConnection=Data Source=db;Initial Catalog=GloboTicketOrderDb;Integrated Security=False;User ID=sa;Password=password123!;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;
+      - ServiceBusConnectionString=Endpoint=sb://globoticket-messgingbus.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=NuJyuurV2/uyX3dyRMvSaITIB/YG4o+vl+ASbA9rags=;TransportType=AmqpWebSockets",
+      - UpdateOrderMessageTopic=updateordermessage
+    ports:
+      #- "5005:80"
+      - "5005:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on:
+      - db
+
+
+  globoticket.services.shoppingbasket:
+    container_name: globoticket.services.shoppingbasket
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ConnectionStrings_DefaultConnection=Data Source=db;Initial Catalog=GloboTicketShoppingBasketDb;Integrated Security=False;User ID=sa;Password=password123!;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;
+      - ApiConfigs__EventCatalog__Uri=https://globoticket.services.eventcatalog
+      - ApiConfigs__Discount__Uri=https://globoticket.services.discount
+      - ApiConfigs__ExternalPayment__Uri=https://globoticket.services.externalpayment
+    ports:
+      #- "5002:80"
+      - "5002:443"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
@@ -19,7 +94,7 @@ services:
   db:
     image: mcr.microsoft.com/mssql/server:2019-latest
     expose:
-     - "1433"
+     - "1433:1433"
     environment:
      SA_PASSWORD: "password123!"
      ACCEPT_EULA: "Y"

@@ -18,8 +18,17 @@ namespace GloboTicket.Web.Services
 
         public async Task<IEnumerable<Event>> GetAll()
         {
-            var response = await client.GetAsync("/api/events");
-            return await response.ReadContentAs<List<Event>>();
+            try
+            {
+                var response = await client.GetAsync("/api/events");
+                return await response.ReadContentAs<List<Event>>();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+           
         }
 
         public async Task<IEnumerable<Event>> GetByCategoryId(Guid categoryid)

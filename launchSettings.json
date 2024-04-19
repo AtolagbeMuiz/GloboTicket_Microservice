@@ -4,7 +4,12 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
-        "globoticket.services.discount": "StartDebugging"
+        "globoticket.services.discount": "StartDebugging",
+        "globoticket.services.externalpayment": "StartDebugging",
+        "globoticket.services.ordering": "StartDebugging",
+        "globoticket.services.shoppingbasket": "StartDebugging",
+        "globoticket.web": "StartDebugging",
+        "ocelot.apigateway": "StartDebugging"
       }
     }
   }

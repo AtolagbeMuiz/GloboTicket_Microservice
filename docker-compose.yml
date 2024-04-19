@@ -6,3 +6,30 @@ services:
     build:
       context: .
       dockerfile: GloboTicket.Services.Discount/Dockerfile
+
+  globoticket.services.eventcatalog:
+    image: ${DOCKER_REGISTRY-}globoticketserviceseventcatalog
+    build:
+      context: .
+      dockerfile: GloboTicket.Services.EventCatalog/Dockerfile
+
+
+  globoticket.services.externalpayment:
+    image: ${DOCKER_REGISTRY-}globoticketservicesexternalpayment
+    build:
+      context: .
+      dockerfile: GloboTicket.Services.ExternalPayment/Dockerfile
+
+
+  globoticket.services.ordering:
+    image: ${DOCKER_REGISTRY-}globoticketservicesordering
+    build:
+      context: .
+      dockerfile: GloboTicket.Services.Ordering/Dockerfile
+
+
+  globoticket.services.shoppingbasket:
+    image: ${DOCKER_REGISTRY-}globoticketservicesshoppingbasket
+    build:
+      context: .
+      dockerfile: GloboTicket.Services.ShoppingBasket/Dockerfile

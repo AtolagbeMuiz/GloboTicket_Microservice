@@ -6,12 +6,20 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5001
+          //"Host": "172.24.0.4",
+          "Host": "172.25.0.5:5001",
+          "Port": 443
+
+          //"Host": "{EventCatalogService}"
+
+          //"Host": "globoticket.services.eventcatalog",
+          //"Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/events",
       "UpstreamHttpMethod": [ "Get" ]
+
+      //"DangerousAcceptAnyServerCertificateValidator": true
     },
 
     {
@@ -19,12 +27,19 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5001
+          //"Host": "172.24.0.4",
+          "Host": "172.25.0.5:5001",
+          "Port": 443
+
+          //"Host": "{EventCatalogService}"
+
+          //"Host": "globoticket.services.eventcatalog",
+          //"Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/events/?categoryId={categoryid}",
       "UpstreamHttpMethod": [ "Get" ]
+
     },
 
     {
@@ -32,12 +47,19 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5001
+          //"Host": "172.24.0.4",
+          "Host": "172.25.0.5:5001",
+          "Port": 443
+
+          //"Host": "{EventCatalogService}"
+
+          //"Host": "globoticket.services.eventcatalog",
+          //"Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/events/{id}",
       "UpstreamHttpMethod": [ "Get" ]
+
     },
 
     {
@@ -45,12 +67,19 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5001
+          //"Host": "172.24.0.4",
+          "Host": "172.25.0.5:5001",
+          "Port": 443
+
+          //"Host": "{EventCatalogService}"
+
+          //"Host": "globoticket.services.eventcatalog",
+          //"Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/categories",
       "UpstreamHttpMethod": [ "Get" ]
+
     },
 
 
@@ -60,12 +89,19 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5004
+          //"Host": "172.24.0.2",
+          "Host": "172.25.0.7:5004",
+          "Port": 443
+
+          //"Host": "{ExternalPaymentService}"
+
+          //"Host": "globoticket.services.externalpayment",
+          //"Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/payment/{orderID}",
       "UpstreamHttpMethod": [ "Get" ]
+
     },
 
 
@@ -75,36 +111,57 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5003
+          //"Host": "172.24.0.6",
+          "Host": "172.25.0.6:5003",
+          "Port": 443
+
+          //"Host": "{DiscountService}"
+
+          //"Host": "globoticket.services.discount",
+          //"Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/discount/code/{code}",
       "UpstreamHttpMethod": [ "Get" ]
+
     },
     {
       "DownstreamPathTemplate": "/api/discount/{couponId}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5003
+          //"Host": "172.24.0.6",
+          "Host": "172.25.0.6:5003",
+          "Port": 443
+
+          //"Host": "{DiscountService}"
+
+          //"Host": "globoticket.services.discount",
+          //"Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/discount/{couponId}",
       "UpstreamHttpMethod": [ "Get" ]
+
     },
     {
       "DownstreamPathTemplate": "/api/discount/use/{couponId}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5003
+          //Host": "172.24.0.6",
+          "Host": "172.25.0.6:5003",
+          "Port": 443
+
+          //"Host": "{DiscountService}"
+
+          //"Host": "globoticket.services.discount",
+          //"Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/discount/use/{couponId}",
       "UpstreamHttpMethod": [ "Get" ]
+
     },
 
 
@@ -114,92 +171,147 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5002
+          //"Host": "172.24.0.5",
+          "Host": "172.25.0.3:5002",
+          "Port": 443
+
+          //"Host": "{ShoppingBasketService}"
+
+          //"Host": "globoticket.services.shoppingbasket",
+          //"Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/baskets",
       "UpstreamHttpMethod": [ "Post" ]
+
     },
     {
       "DownstreamPathTemplate": "/api/baskets/{basketId}/basketlines",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5002
+          //"Host": "172.24.0.5",
+          "Host": "172.25.0.3:5002",
+          "Port": 443
+
+          //"Host": "{ShoppingBasketService}"
+
+          //"Host": "globoticket.services.shoppingbasket",
+          //"Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/baskets/{basketId}/basketlines",
       "UpstreamHttpMethod": [ "Post" ]
+
     },
     {
       "DownstreamPathTemplate": "/api/baskets/{basketId}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5002
+          //"Host": "172.24.0.5",
+          "Host": "172.25.0.3:5002",
+          "Port": 443
+
+          //"Host": "{ShoppingBasketService}"
+
+          //"Host": "globoticket.services.shoppingbasket",
+          //"Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/baskets/{basketId}",
       "UpstreamHttpMethod": [ "Get" ]
+
     },
     {
       "DownstreamPathTemplate": "/api/baskets/{basketId}/basketLines",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5002
+          //"Host": "172.24.0.5",
+          "Host": "172.25.0.3:5002",
+          "Port": 443
+
+          //"Host": "{ShoppingBasketService}"
+
+          //"Host": "globoticket.services.shoppingbasket",
+          //"Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/baskets/{basketId}/basketLines",
       "UpstreamHttpMethod": [ "Get" ]
+
     },
     {
       "DownstreamPathTemplate": "/api/baskets/{basketId}/basketLines/{basketLineForUpdate.LineId}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5002
+          //"Host": "172.24.0.5",
+          "Host": "172.25.0.3:5002",
+          "Port": 443
+
+          //"Host": "{ShoppingBasketService}"
+
+          //"Host": "globoticket.services.shoppingbasket",
+          //"Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/baskets/{basketId}/basketLines/{basketLineForUpdate.LineId}",
       "UpstreamHttpMethod": [ "Put" ]
+
     },
     {
       "DownstreamPathTemplate": "/api/baskets/{basketId}/basketLines/{lineId}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5002
+          //"Host": "172.24.0.5",
+          "Host": "172.25.0.3:5002",
+          "Port": 443
+
+          //"Host": "{ShoppingBasketService}"
+
+          //"Host": "globoticket.services.shoppingbasket",
+          //"Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/baskets/{basketId}/basketLines/{lineId}",
       "UpstreamHttpMethod": [ "Delete" ]
+
     },
     {
       "DownstreamPathTemplate": "/api/baskets/{basketId}/coupon",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5002
+          //"Host": "172.24.0.5",
+          "Host": "172.25.0.3:5002",
+          "Port": 443
+
+          //"Host": "{ShoppingBasketService}"
+
+          //"Host": "globoticket.services.shoppingbasket",
+          //"Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/baskets/{basketId}/coupon",
       "UpstreamHttpMethod": [ "Put" ]
+
     },
     {
       "DownstreamPathTemplate": "/api/baskets/checkout",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5002
+          //"Host": "172.24.0.5",
+          "Host": "172.25.0.3:5002",
+          "Port": 443
+
+          //"Host": "{ShoppingBasketService}"
+
+          //"Host": "globoticket.services.shoppingbasket",
+          //"Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/baskets/checkout",
@@ -212,26 +324,77 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5005
+          //"Host": "172.24.0.7",
+          "Host": "172.25.0.4:5005",
+          "Port": 443
+
+          //"Host": "{OrderService}"
+
+          //"Host": "globoticket.services.ordering",
+          //"Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/order/user/{userId}",
       "UpstreamHttpMethod": [ "Get" ]
+
     },
     {
       "DownstreamPathTemplate": "/api/order/{orderId}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5005
+          //"Host": "172.24.0.7",
+          "Host": "172.25.0.4:5005",
+          "Port": 443
+
+          //"Host": "{OrderService}"
+
+          //"Host": "globoticket.services.ordering",
+          //"Port": 443
         }
       ],
       "UpstreamPathTemplate": "/api/order/{orderId}",
       "UpstreamHttpMethod": [ "Get" ]
+
     }
 
 
-  ]
+  ],
+
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:5021"
+  }
+
+  //"GlobalConfiguration": {
+  //  //"BaseUrl": "https://localhost:5021",
+  //  "Hosts": {
+  //    "EventCatalogService": "https://globoticket.services.eventcatalog:5001",
+  //    "ShoppingBasketService": "https://globoticket.services.shoppingbasket:5002",
+  //    "DiscountService": "https://globoticket.services.discount:5003",
+  //    "ExternalPaymentService": "https://globoticket.services.externalpayment:5004",
+  //    "OrderService": "https://globoticket.services.ordering:5005"
+  //  }
+  //}
+
+  //"GlobalConfiguration": {
+  //  //"BaseUrl": "https://localhost:5021",
+  //  "Hosts": {
+  //    "EventCatalogService": "https://host.docker.internal:5001",
+  //    "ShoppingBasketService": "https://host.docker.internal:5002",
+  //    "DiscountService": "https://host.docker.internal:5003",
+  //    "ExternalPaymentService": "https://host.docker.internal:5004",
+  //    "OrderService": "https://host.docker.internal:5005"
+  //  }
+  //}
+
+  //"GlobalConfiguration": {
+  //  "BaseUrl": "https://localhost:5021",
+  //  "Hosts": {
+  //    "EventCatalogService": "https://localhost:5001",
+  //    "ShoppingBasketService": "https://localhost:5002",
+  //    "DiscountService": "https://localhost:5003",
+  //    "ExternalPaymentService": "https://localhost:5004",
+  //    "OrderService": "https://localhost:5005"
+  //  }
+  //}
 }

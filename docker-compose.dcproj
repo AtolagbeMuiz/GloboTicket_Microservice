@@ -4,7 +4,7 @@
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
-    <ProjectGuid>afa9bf8d-e3ed-4cda-9df1-96f746c07dfa</ProjectGuid>
+    <ProjectGuid>0020c289-aa39-45f6-a072-a035f0502fd1</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/weatherforecast</DockerServiceUrl>
     <DockerServiceName>globoticket.services.discount</DockerServiceName>
