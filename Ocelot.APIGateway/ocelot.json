@@ -7,8 +7,8 @@
       "DownstreamHostAndPorts": [
         {
           //"Host": "172.24.0.4",
-          "Host": "172.25.0.5:5001",
-          "Port": 443
+          "Host": "localhost",
+          "Port": 5001
 
           //"Host": "{EventCatalogService}"
 
@@ -28,8 +28,8 @@
       "DownstreamHostAndPorts": [
         {
           //"Host": "172.24.0.4",
-          "Host": "172.25.0.5:5001",
-          "Port": 443
+          "Host": "localhost",
+          "Port": 5001
 
           //"Host": "{EventCatalogService}"
 
@@ -48,8 +48,8 @@
       "DownstreamHostAndPorts": [
         {
           //"Host": "172.24.0.4",
-          "Host": "172.25.0.5:5001",
-          "Port": 443
+          "Host": "localhost",
+          "Port": 5001
 
           //"Host": "{EventCatalogService}"
 
@@ -68,8 +68,8 @@
       "DownstreamHostAndPorts": [
         {
           //"Host": "172.24.0.4",
-          "Host": "172.25.0.5:5001",
-          "Port": 443
+          "Host": "localhost",
+          "Port": 5001
 
           //"Host": "{EventCatalogService}"
 
@@ -90,8 +90,8 @@
       "DownstreamHostAndPorts": [
         {
           //"Host": "172.24.0.2",
-          "Host": "172.25.0.7:5004",
-          "Port": 443
+          "Host": "localhost",
+          "Port": 5004
 
           //"Host": "{ExternalPaymentService}"
 
@@ -112,8 +112,8 @@
       "DownstreamHostAndPorts": [
         {
           //"Host": "172.24.0.6",
-          "Host": "172.25.0.6:5003",
-          "Port": 443
+          "Host": "localhost",
+          "Port": 5003
 
           //"Host": "{DiscountService}"
 
@@ -131,8 +131,8 @@
       "DownstreamHostAndPorts": [
         {
           //"Host": "172.24.0.6",
-          "Host": "172.25.0.6:5003",
-          "Port": 443
+          "Host": "localhost",
+          "Port": 5003
 
           //"Host": "{DiscountService}"
 
@@ -150,8 +150,8 @@
       "DownstreamHostAndPorts": [
         {
           //Host": "172.24.0.6",
-          "Host": "172.25.0.6:5003",
-          "Port": 443
+          "Host": "localhost",
+          "Port": 5003
 
           //"Host": "{DiscountService}"
 
@@ -172,8 +172,8 @@
       "DownstreamHostAndPorts": [
         {
           //"Host": "172.24.0.5",
-          "Host": "172.25.0.3:5002",
-          "Port": 443
+          "Host": "localhost",
+          "Port": 5002
 
           //"Host": "{ShoppingBasketService}"
 
@@ -191,8 +191,8 @@
       "DownstreamHostAndPorts": [
         {
           //"Host": "172.24.0.5",
-          "Host": "172.25.0.3:5002",
-          "Port": 443
+          "Host": "localhost",
+          "Port": 5002
 
           //"Host": "{ShoppingBasketService}"
 
@@ -210,8 +210,8 @@
       "DownstreamHostAndPorts": [
         {
           //"Host": "172.24.0.5",
-          "Host": "172.25.0.3:5002",
-          "Port": 443
+          "Host": "localhost",
+          "Port": 5002
 
           //"Host": "{ShoppingBasketService}"
 
@@ -229,8 +229,8 @@
       "DownstreamHostAndPorts": [
         {
           //"Host": "172.24.0.5",
-          "Host": "172.25.0.3:5002",
-          "Port": 443
+          "Host": "localhost",
+          "Port": 5002
 
           //"Host": "{ShoppingBasketService}"
 
@@ -248,8 +248,8 @@
       "DownstreamHostAndPorts": [
         {
           //"Host": "172.24.0.5",
-          "Host": "172.25.0.3:5002",
-          "Port": 443
+          "Host": "localhost",
+          "Port": 5002
 
           //"Host": "{ShoppingBasketService}"
 
@@ -267,8 +267,8 @@
       "DownstreamHostAndPorts": [
         {
           //"Host": "172.24.0.5",
-          "Host": "172.25.0.3:5002",
-          "Port": 443
+          "Host": "localhost",
+          "Port": 5002
 
           //"Host": "{ShoppingBasketService}"
 
@@ -286,8 +286,8 @@
       "DownstreamHostAndPorts": [
         {
           //"Host": "172.24.0.5",
-          "Host": "172.25.0.3:5002",
-          "Port": 443
+          "Host": "localhost",
+          "Port": 5002
 
           //"Host": "{ShoppingBasketService}"
 
@@ -305,8 +305,8 @@
       "DownstreamHostAndPorts": [
         {
           //"Host": "172.24.0.5",
-          "Host": "172.25.0.3:5002",
-          "Port": 443
+          "Host": "localhost",
+          "Port": 5002
 
           //"Host": "{ShoppingBasketService}"
 
@@ -325,8 +325,8 @@
       "DownstreamHostAndPorts": [
         {
           //"Host": "172.24.0.7",
-          "Host": "172.25.0.4:5005",
-          "Port": 443
+          "Host": "localhost",
+          "Port": 5005
 
           //"Host": "{OrderService}"
 
@@ -344,8 +344,8 @@
       "DownstreamHostAndPorts": [
         {
           //"Host": "172.24.0.7",
-          "Host": "172.25.0.4:5005",
-          "Port": 443
+          "Host": "localhost",
+          "Port": 5005
 
           //"Host": "{OrderService}"
 

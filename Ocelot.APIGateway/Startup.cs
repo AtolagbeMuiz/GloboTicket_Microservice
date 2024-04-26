@@ -32,26 +32,36 @@ namespace Ocelot.APIGateway
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            try
             {
-                app.UseDeveloperExceptionPage();
+                if (env.IsDevelopment())
+                {
+                    app.UseDeveloperExceptionPage();
+                }
+
+                app.UseHttpsRedirection();
+
+                app.UseRouting();
+
+                app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                    //endpoints.MapGet("/", async context =>
+                    //{
+                    //    await context.Response.WriteAsync("Hello World!");
+                    //});
+                });
+
+                await app.UseOcelot();
+                //app.UseOcelot().Wait();
+
             }
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
+            catch (Exception ex)
             {
-                 endpoints.MapControllers();
-                //endpoints.MapGet("/", async context =>
-                //{
-                //    await context.Response.WriteAsync("Hello World!");
-                //});
-            });
-
-            await app.UseOcelot();
-            //app.UseOcelot().Wait();
+                Console.WriteLine("error on middleware pipeline is --- " + ex.Message + " and stack trace "+ ex.StackTrace+ " inner exception: "+ ex.InnerException);
+                throw;
+            }
+           
 
         }
     }

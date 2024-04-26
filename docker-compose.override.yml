@@ -6,8 +6,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ConnectionStrings_DefaultConnection=Data Source=db;Initial Catalog=GloboTicketDiscountDb;Integrated Security=False;User ID=sa;Password=password123!;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;
-
+      #- ConnectionStrings_DefaultConnection=Data Source=db;Initial Catalog=GloboTicketDiscountDb;Integrated Security=False;User ID=sa;Password=password123!;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;
+      - ConnectionStrings__DefaultConnection=Server=db;Initial Catalog=GloboTicketDiscountDb;User ID=SA;Password=Oluwadamilare@1997;Encrypt = False; TrustServerCertificate = True;
     ports:
       #- "5003:80"
       - "5003:443"
@@ -24,7 +24,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ConnectionStrings_DefaultConnection=Data Source=db;Initial Catalog=GloboTicketEventCatalogDb;Integrated Security=False;User ID=sa;Password=password123!;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;
+     # - ConnectionStrings_DefaultConnection=Data Source=db;Initial Catalog=GloboTicketEventCatalogDb;Integrated Security=False;User ID=sa;Password=password123!;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;
+      - ConnectionStrings__DefaultConnection=Server=db;Initial Catalog=GloboTicketEventCatalogDb;User ID=SA;Password=Oluwadamilare@1997;Encrypt = False; TrustServerCertificate = True;
     ports:
       #- "5001:80"
       - "5001:443"
@@ -40,7 +41,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ApiConfigs__Order__Uri=https://globoticket.services.ordering
+      - ApiConfigs__Order__Uri=http://globoticket.services.ordering
       - ApiRoute__PaypalBaseUrl=https://api-m.sandbox.paypal.com/
       - ApiRoute__GetAccessToken=v1/oauth2/token
       - ApiRoute__CheckoutOrder=v2/checkout/orders
@@ -52,7 +53,8 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-    
+    depends_on:
+     - globoticket.services.ordering
 
 
   globoticket.services.ordering:
@@ -60,7 +62,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ConnectionStrings_DefaultConnection=Data Source=db;Initial Catalog=GloboTicketOrderDb;Integrated Security=False;User ID=sa;Password=password123!;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;
+      #- ConnectionStrings_DefaultConnection=Data Source=db;Initial Catalog=GloboTicketOrderDb;Integrated Security=False;User ID=sa;Password=password123!;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;
+      - ConnectionStrings__DefaultConnection=Server=db;Initial Catalog=GloboTicketOrderDb;User ID=SA;Password=Oluwadamilare@1997;Encrypt = False; TrustServerCertificate = True;
       - ServiceBusConnectionString=Endpoint=sb://globoticket-messgingbus.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=NuJyuurV2/uyX3dyRMvSaITIB/YG4o+vl+ASbA9rags=;TransportType=AmqpWebSockets",
       - UpdateOrderMessageTopic=updateordermessage
     ports:
@@ -78,10 +81,11 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ConnectionStrings_DefaultConnection=Data Source=db;Initial Catalog=GloboTicketShoppingBasketDb;Integrated Security=False;User ID=sa;Password=password123!;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;
-      - ApiConfigs__EventCatalog__Uri=https://globoticket.services.eventcatalog
-      - ApiConfigs__Discount__Uri=https://globoticket.services.discount
-      - ApiConfigs__ExternalPayment__Uri=https://globoticket.services.externalpayment
+      #- ConnectionStrings_DefaultConnection=Data Source=db;Initial Catalog=GloboTicketShoppingBasketDb;Integrated Security=False;User ID=sa;Password=password123!;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;
+      - ConnectionStrings__DefaultConnection=Server=db;Initial Catalog=GloboTicketShoppingBasketDb;User ID=SA;Password=Oluwadamilare@1997;Encrypt = False; TrustServerCertificate = True;
+      - ApiConfigs__EventCatalog__Uri=http://globoticket.services.eventcatalog
+      - ApiConfigs__Discount__Uri=http://globoticket.services.discount
+      - ApiConfigs__ExternalPayment__Uri=http://globoticket.services.externalpayment
     ports:
       #- "5002:80"
       - "5002:443"
@@ -90,11 +94,16 @@ services:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     depends_on:
       - db
+      - globoticket.services.eventcatalog
+      - globoticket.services.discount
+      - globoticket.services.externalpayment
 
   db:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    expose:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
      - "1433:1433"
     environment:
-     SA_PASSWORD: "password123!"
      ACCEPT_EULA: "Y"
+     SA_PASSWORD: "Oluwadamilare@1997"
+     MSSQL_PID: "Express"
+    

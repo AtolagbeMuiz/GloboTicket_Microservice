@@ -8,8 +8,8 @@
         "globoticket.services.externalpayment": "StartDebugging",
         "globoticket.services.ordering": "StartDebugging",
         "globoticket.services.shoppingbasket": "StartDebugging",
-        "globoticket.web": "StartDebugging",
-        "ocelot.apigateway": "StartDebugging"
+        "globoticket.services.eventcatalog": "StartDebugging"
+        
       }
     }
   }
