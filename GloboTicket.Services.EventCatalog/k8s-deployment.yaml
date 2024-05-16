@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: svc-globoticket-services-eventcatalog
+    labels:
+        version: dev
+        product: globoticket-services-eventcatalog
+spec:
+    type: LoadBalancer #NodePort #defines port for external service to be able to access the service from the browser
+    selector:
+        app: globoticket-services-eventcatalog
+    ports:
+    - protocol: TCP
+      port: 443
+      targetPort: 443
+      #name: https
+      nodePort: 30500 #defines port for external service to be able to access the service from the browser
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: dep-globoticket-services-eventcatalog
+spec:
+    replicas: 1
+    selector: 
+        matchLabels:
+            app: globoticket-services-eventcatalog
+    template:
+        metadata:
+            labels:
+                app: globoticket-services-eventcatalog
+        spec:
+            containers:
+            - name: globoticket-services-eventcatalog
+              image: 143100/globoticketserviceseventcatalog:dev
+              imagePullPolicy: Always
+      
+              env: 
+              - name: ASPNETCORE_ENVIRONMENT
+                value: Production
+              - name: ASPNETCORE_URLS
+                value: http://+:443
+              - name: ConnectionStrings__DefaultConnection
+                valueFrom:
+                    secretKeyRef:
+                        name: eventcatalog-secret
+                        key: connectionstring
+              ports:
+              - containerPort: 443
+            #restartPolicy: Always
+
+    
